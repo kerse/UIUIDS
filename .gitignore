@@ -1,5 +1,6 @@
 # Working documentation and design inputs stay local; the repository is the runnable prototype only.
 /*.md
+!/README.md
 /*.json
 /reference/
 
