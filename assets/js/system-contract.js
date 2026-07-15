@@ -9,6 +9,7 @@
   };
   const shellIds={nav:'app-sidebar',toggle:'app-nav-toggle',profile:'app-profile'};
   const themeStorageKey='uitheme';
+  const themeNamePattern=/^[a-z][a-z0-9-]{0,31}$/;
   const groups=[
     ['Monitor',[
       ['overview','Executive overview','overview.html','home'],
@@ -42,11 +43,11 @@
   function icon(name){return `<span class="ui-nav-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="${paths[name]}"></path></svg></span>`;}
   function initialTheme(){
     const saved=localStorage.getItem(themeStorageKey);
-    if(saved==='light'||saved==='dark')return saved;
+    if(saved&&themeNamePattern.test(saved))return saved;
     return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
   }
   function applyTheme(theme,{persist=true}={}){
-    const next=theme==='dark'?'dark':'light';
+    const next=typeof theme==='string'&&themeNamePattern.test(theme)?theme:'light';
     document.documentElement.dataset.theme=next;
     if(persist)localStorage.setItem(themeStorageKey,next);
     document.querySelectorAll('[data-theme-toggle]').forEach(button=>{
