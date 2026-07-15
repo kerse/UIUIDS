@@ -8,6 +8,7 @@
     'settings.html':'settings','components.html':'components'
   };
   const shellIds={nav:'app-sidebar',toggle:'app-nav-toggle',profile:'app-profile'};
+  const themeStorageKey='uitheme';
   const groups=[
     ['Monitor',[
       ['overview','Executive overview','overview.html','home'],
@@ -39,9 +40,40 @@
 
   function currentPage(){return pageByFile[location.pathname.split('/').pop()]||document.documentElement.dataset.workspacePage||'overview';}
   function icon(name){return `<span class="ui-nav-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="${paths[name]}"></path></svg></span>`;}
+  function initialTheme(){
+    const saved=localStorage.getItem(themeStorageKey);
+    if(saved==='light'||saved==='dark')return saved;
+    return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  }
+  function applyTheme(theme,{persist=true}={}){
+    const next=theme==='dark'?'dark':'light';
+    document.documentElement.dataset.theme=next;
+    if(persist)localStorage.setItem(themeStorageKey,next);
+    document.querySelectorAll('[data-theme-toggle]').forEach(button=>{
+      const dark=next==='dark';
+      button.setAttribute('aria-pressed',String(dark));
+      button.setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme');
+      button.title=dark?'Light theme':'Dark theme';
+      const label=button.querySelector('[data-theme-label]');
+      const glyph=button.querySelector('[data-theme-icon]');
+      if(label)label.textContent=dark?'Light theme':'Dark theme';
+      if(glyph)glyph.textContent=dark?'☀':'◐';
+    });
+    document.dispatchEvent(new CustomEvent('ops:themechange',{detail:{theme:next}}));
+  }
+  function bindGlobalTheme(){
+    if(document.documentElement.dataset.opsThemeBound)return;
+    document.documentElement.dataset.opsThemeBound='true';
+    document.addEventListener('click',event=>{
+      const button=event.target.closest('[data-theme-toggle]');
+      if(!button)return;
+      event.preventDefault();
+      applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+    });
+  }
   function sidebarMarkup(page){
     const ids=shellIds;
-    return `<aside class="ui-sidebar" id="${ids.nav}" aria-label="Primary navigation"><a class="ui-brand" href="../index.html"><span class="ui-brand-mark">UI</span><span class="ui-brand-copy">UIUIDS<small>Control plane</small></span></a>${groups.map(([label,items])=>`<section class="ui-nav-section"><div class="ui-nav-label">${label}</div><nav class="ui-nav-list">${items.map(([key,text,href,glyph])=>`<a class="ui-nav-link" href="${href}" ${key===page?'aria-current="page"':''}>${icon(glyph)}<span>${text}</span></a>`).join('')}</nav></section>`).join('')}<div class="ui-profile"><span class="ui-avatar">MP</span><span class="ui-profile-copy"><b>M. Petrovic</b><small>Operations lead</small></span><button type="button" id="${ids.profile}" aria-label="Open profile menu">⌄</button></div></aside>`;
+    return `<aside class="ui-sidebar" id="${ids.nav}" aria-label="Primary navigation"><a class="ui-brand" href="../index.html"><span class="ui-brand-mark">UI</span><span class="ui-brand-copy">UIUIDS<small>Control plane</small></span></a>${groups.map(([label,items])=>`<section class="ui-nav-section"><div class="ui-nav-label">${label}</div><nav class="ui-nav-list">${items.map(([key,text,href,glyph])=>`<a class="ui-nav-link" href="${href}" ${key===page?'aria-current="page"':''}>${icon(glyph)}<span>${text}</span></a>`).join('')}</nav></section>`).join('')}<button class="ui-theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="ui-theme-icon" data-theme-icon aria-hidden="true">◐</span><span data-theme-label>Dark theme</span></button><div class="ui-profile"><span class="ui-avatar">MP</span><span class="ui-profile-copy"><b>M. Petrovic</b><small>Operations lead</small></span><button type="button" id="${ids.profile}" aria-label="Open profile menu">⌄</button></div></aside>`;
   }
   function headerMarkup(page,title,subtitle,actions){
     const ids=shellIds;
@@ -88,7 +120,7 @@
       }
     });
     scope.querySelector(`#${ids.profile}`)?.addEventListener('click',()=>document.dispatchEvent(new CustomEvent('ops:profile')));
-    bindGlobalDensity();applyDensity(localStorage.oidensity==='compact');
+    bindGlobalDensity();applyDensity(localStorage.oidensity==='compact');applyTheme(document.documentElement.dataset.theme,{persist:false});
   }
   function mount(root,{page=currentPage(),title,subtitle='',actions='',content=''}){
     root.innerHTML=shellMarkup(page,title,subtitle,actions,content)+`<div class="ws-toast" role="status" aria-live="polite"></div>`;
@@ -118,7 +150,9 @@
     }
   }
 
-  window.OpsShell={mount,shellMarkup,applyDensity};
+  applyTheme(initialTheme(),{persist:false});
+  bindGlobalTheme();
+  window.OpsShell={mount,shellMarkup,applyDensity,applyTheme};
   if(!customElements.get('ops-shell'))customElements.define('ops-shell',OpsShellElement);
   document.addEventListener('DOMContentLoaded',removeLegacyDensityHandlers,{once:true});
 })();

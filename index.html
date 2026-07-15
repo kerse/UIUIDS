@@ -4,18 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>UIUIDS · Interface System</title>
+  <script>document.documentElement.dataset.theme=localStorage.getItem('uitheme')||((matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');</script>
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/experimental-realtime.css">
   <link rel="stylesheet" href="assets/css/experimental-typography.css">
   <link rel="stylesheet" href="assets/css/workspace-pages.css">
   <link rel="stylesheet" href="assets/css/system-contract.css">
+  <script defer src="assets/js/system-contract.js"></script>
 </head>
 <body class="exp-body workspace-body">
   <main class="catalog-main">
     <header class="catalog-header">
       <div class="catalog-brand"><b class="catalog-brand-mark">UI</b><span>UIUIDS<small>Interface system · iteration 01</small></span></div>
-      <div class="catalog-header-actions"><a class="ws-btn" href="README.md">Read documentation</a><a class="ws-btn ws-btn-primary" href="pages/overview.html">Open overview</a></div>
+      <div class="catalog-header-actions"><button class="ws-btn" type="button" data-theme-toggle aria-pressed="false"><span data-theme-icon aria-hidden="true">◐</span><span data-theme-label>Dark theme</span></button><a class="ws-btn ws-btn-primary" href="pages/overview.html">Open overview</a></div>
     </header>
     <section class="ws-catalog-intro">
       <div><div class="ws-eyebrow">Professional control surfaces</div><h1>A connected system for monitoring, analysis and operational work.</h1><p>Eleven interactive static workspaces share one compact visual language while keeping distinct information architectures for live monitoring, dense data, triage, configuration and system reference.</p></div>
