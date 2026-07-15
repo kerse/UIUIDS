@@ -2,7 +2,7 @@
   'use strict';
 
   const pageByFile={
-    'overview.html':'overview','experimental-realtime.html':'realtime','monitoring.html':'monitoring',
+    'overview.html':'overview','experimental-realtime.html':'realtime','monitoring.html':'monitoring','geospatial.html':'geo',
     'data-explorer.html':'data','entity-detail.html':'entity','analytics.html':'analytics',
     'alerts.html':'alerts','operations.html':'operations','audit-log.html':'audit',
     'settings.html':'settings','components.html':'components'
@@ -15,6 +15,7 @@
       ['overview','Executive overview','overview.html','home'],
       ['realtime','Realtime dashboard','experimental-realtime.html','pulse'],
       ['monitoring','Monitoring','monitoring.html','activity'],
+      ['geo','Geospatial operations','geospatial.html','map'],
       ['analytics','Analytics','analytics.html','chart']
     ]],
     ['Work',[
@@ -32,6 +33,7 @@
   const paths={
     home:'M3 9.5 8 5l5 4.5v5H9.8v-3.5H6.2v3.5H3z',pulse:'M1.5 9h3l1.7-4 3.1 8 2-5H15',
     activity:'M2 12V8m4 4V4m4 8V7m4 5V2',chart:'M2 14V8m4 6V5m4 9m4 5V3',
+    map:'M2 3.5 6 2l4 1.5L14 2v10.5L10 14l-4-1.5L2 14zM6 2v10.5M10 3.5V14',
     table:'M2 3h12v10H2zM2 7h12M6 3v10',asset:'M3 4h10v9H3zM6 4V2h4v2M6 8h4',
     alert:'M8 2 15 14H1zM8 6v3m0 2.5v.5',check:'M2 8.5 6 12l8-9M9 12h5',
     history:'M8 2a6 6 0 1 1-5.2 3M2 2v4h4M8 5v4l3 2',

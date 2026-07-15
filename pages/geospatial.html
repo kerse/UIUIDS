@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-page="geo">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Geospatial operations · UIUIDS</title>
+ <link rel="stylesheet" href="../assets/css/tokens.css">
+ <link rel="stylesheet" href="../assets/css/base.css">
+ <link rel="stylesheet" href="../assets/css/experimental-realtime.css">
+ <link rel="stylesheet" href="../assets/css/experimental-typography.css">
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+ <link rel="stylesheet" href="../assets/css/geospatial.css">
+ <link rel="stylesheet" href="../assets/css/system-contract.css">
+ <script defer src="../assets/js/system-contract.js"></script>
+ <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+ <script defer src="../assets/js/geospatial.js"></script>
+</head>
+<body class="exp-body geo-body">
+ <ops-shell page="geo" title="Geospatial operations">
+  <span slot="subtitle"><span class="live-dot"></span><span id="geo-scope-label">Balkan network · 18 active assets</span> · updated 34 seconds ago</span>
+  <div slot="actions">
+   <label class="sr-only" for="geo-period">Map period</label>
+   <select id="geo-period"><option value="live">Live · 30 min</option><option value="shift">Current shift</option><option value="24h">Last 24 hours</option></select>
+   <button class="exp-button" type="button" data-density>Compact</button>
+   <button class="exp-button" type="button" id="geo-share">Share view</button>
+  </div>
+
+  <section class="geo-question" aria-labelledby="geo-question-title">
+   <div><span>Operational question</span><strong id="geo-question-title">Where are mobile assets, active disruptions and SLA risk concentrated right now?</strong></div>
+   <dl><div><dt>Visible</dt><dd id="geo-visible-count">18</dd></div><div><dt>At risk</dt><dd id="geo-risk-count">5</dd></div><div><dt>Moving</dt><dd id="geo-moving-count">11</dd></div></dl>
+  </section>
+
+  <section class="geo-toolbar" aria-label="Map filters">
+   <label class="geo-search"><span aria-hidden="true">⌕</span><span class="sr-only">Search assets and locations</span><input id="geo-search" type="search" placeholder="Search asset, route or location…" autocomplete="off"></label>
+   <label><span class="sr-only">Status</span><select id="geo-status"><option value="all">All statuses</option><option value="critical">Critical</option><option value="warning">Warning</option><option value="healthy">Healthy</option><option value="offline">Offline</option></select></label>
+   <label><span class="sr-only">Asset type</span><select id="geo-type"><option value="all">All asset types</option><option value="vehicle">Vehicles</option><option value="hub">Hubs</option><option value="sensor">Sensors</option></select></label>
+   <div class="geo-layer-controls" role="group" aria-label="Map layers">
+    <button class="is-active" type="button" data-layer="routes" aria-pressed="true">Routes</button>
+    <button class="is-active" type="button" data-layer="incidents" aria-pressed="true">Incidents</button>
+   </div>
+   <button class="geo-reset" type="button" id="geo-reset">Reset</button>
+   <div class="geo-filter-summary" id="geo-filter-summary" aria-live="polite"></div>
+  </section>
+
+  <section class="geo-workspace" aria-label="Geospatial network workspace">
+   <aside class="geo-list-panel" aria-labelledby="geo-assets-title">
+    <header><div><h2 id="geo-assets-title">Network assets</h2><p id="geo-list-count">18 of 18 visible</p></div><button type="button" id="geo-sort" aria-label="Sort assets by risk">Risk ↓</button></header>
+    <div class="geo-asset-list" id="geo-asset-list" role="listbox" aria-label="Visible network assets"></div>
+    <div class="geo-empty" id="geo-empty" hidden><strong>No matching assets</strong><span>Change the filters or reset the view.</span><button type="button" id="geo-empty-reset">Reset filters</button></div>
+   </aside>
+
+   <section class="geo-map-panel" aria-labelledby="geo-map-title">
+    <div class="geo-map-heading"><div><h2 id="geo-map-title">Balkan operating network</h2><p id="geo-map-caption">Live position, route state and incident layer</p></div><span class="geo-map-updated"><i></i> Live telemetry</span></div>
+    <div class="geo-map-canvas" id="geo-map-canvas">
+     <div class="geo-map" id="geo-map" role="application" aria-label="Interactive Balkan operating network map. Use arrow keys to pan and plus or minus to zoom."></div>
+     <div class="geo-zoom-level" id="geo-zoom-level" aria-live="polite">Network view</div>
+     <div class="geo-legend" aria-label="Map status legend"><span><i class="critical"></i>Critical</span><span><i class="warning"></i>Warning</span><span><i class="healthy"></i>Healthy</span><span><i class="offline"></i>Offline</span></div>
+     <div class="geo-hover-readout" id="geo-hover-readout" role="status" aria-live="polite">Hover or focus a marker for exact values.</div>
+    </div>
+   </section>
+
+   <aside class="geo-inspector" id="geo-inspector" aria-labelledby="geo-inspector-title">
+    <header><div><span>Selected asset</span><h2 id="geo-inspector-title">AST-0421</h2></div><button type="button" id="geo-inspector-close" aria-label="Clear selection">×</button></header>
+    <div class="geo-inspector-content" id="geo-inspector-content"></div>
+   </aside>
+  </section>
+ </ops-shell>
+ <div class="exp-toast" id="geo-toast" role="status" aria-live="polite"></div>
+</body>
+</html>

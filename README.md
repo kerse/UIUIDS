@@ -30,19 +30,20 @@ The contract controls visual grammar and behavior. It does not prescribe one uni
 
 ## Included workspaces
 
-The prototype contains eleven connected screens within one Operations Intelligence domain:
+The prototype contains twelve connected screens within one Operations Intelligence domain:
 
 1. Executive Overview
 2. Realtime Command Dashboard
 3. Realtime Monitoring
-4. Data Explorer
-5. Entity Detail
-6. Analytics Workspace
-7. Alerts & Anomalies
-8. Operations Queue
-9. Audit Log
-10. Admin & Settings
-11. Component Gallery
+4. Geospatial Operations
+5. Data Explorer
+6. Entity Detail
+7. Analytics Workspace
+8. Alerts & Anomalies
+9. Operations Queue
+10. Audit Log
+11. Admin & Settings
+12. Component Gallery
 
 Shared entities, owners, locations, events, alerts, tasks, costs, confidence values, and SLA states create continuity between the screens without repeating identical datasets everywhere.
 
@@ -72,6 +73,8 @@ UIUIDS is built with static HTML, CSS, and JavaScript.
 - `assets/css/themes.css` defines semantic color variables independently from components.
 - `assets/css/tokens.css` contains foundational size, spacing, motion, and chart tokens.
 - Page composition modules own only the information architecture and interactions below the shared shell.
+
+Geospatial Operations uses Leaflet for pan, zoom, markers, route overlays, and controlled regional clustering. The demonstration basemap is provided by OpenStreetMap with visible attribution; a production deployment should use a tile provider and capacity policy appropriate to its traffic.
 
 Static pages use the `<ops-shell>` custom element. Generated workspace pages use `OpsShell.mount()`. Both paths produce the same runtime shell, header, navigation, theme, and density contract.
 
