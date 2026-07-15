@@ -68,6 +68,12 @@
       applyDensity(document.documentElement.dataset.density!=='compact');
     },true);
   }
+  function removeLegacyDensityHandlers(){
+    document.querySelectorAll('#exec-density,#explorer-density,#queue-density').forEach(button=>{
+      const clean=button.cloneNode(true);
+      button.replaceWith(clean);
+    });
+  }
   function bindShell(scope,page){
     const ids=shellIds;
     const sidebar=scope.querySelector('.ui-sidebar');
@@ -114,4 +120,5 @@
 
   window.OpsShell={mount,shellMarkup,applyDensity};
   if(!customElements.get('ops-shell'))customElements.define('ops-shell',OpsShellElement);
+  document.addEventListener('DOMContentLoaded',removeLegacyDensityHandlers,{once:true});
 })();
