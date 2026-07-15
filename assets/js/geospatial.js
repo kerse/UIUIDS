@@ -31,7 +31,7 @@
  const state={query:'',status:'all',type:'all',selected:'AST-0421',sortRisk:true,routes:true,incidents:true};
  const statusRank={critical:0,warning:1,offline:2,healthy:3};
  const typeGlyph={vehicle:'V',hub:'H',sensor:'S'};
- let map,markerLayer,clusterLayer,routeLayer,incidentLayer;
+ let map,markerLayer,clusterLayer,routeLayer,incidentLayer,mapResizeObserver;
  const markerById=new Map();
 
  function $(id){return document.getElementById(id)}
@@ -82,6 +82,7 @@
   map.on('zoomend',()=>renderMapLayers(filtered()));
   map.on('click',event=>{if(event.originalEvent.target.closest?.('.geo-map-marker,.geo-map-cluster'))return;$('geo-hover-readout').textContent='Hover or focus a marker for exact values.'});
   document.addEventListener('ops:themechange',()=>setTimeout(()=>map.invalidateSize(),0));
+  if('ResizeObserver'in window){mapResizeObserver=new ResizeObserver(()=>map.invalidateSize({pan:false,animate:false}));mapResizeObserver.observe($('geo-map-canvas'))}
  }
  function bind(){
   $('geo-search').addEventListener('input',event=>{state.query=event.target.value;render()});
