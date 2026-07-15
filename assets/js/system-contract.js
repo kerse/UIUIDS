@@ -44,7 +44,7 @@
   function initialTheme(){
     const saved=localStorage.getItem(themeStorageKey);
     if(saved&&themeNamePattern.test(saved))return saved;
-    return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    return 'light';
   }
   function applyTheme(theme,{persist=true}={}){
     const next=typeof theme==='string'&&themeNamePattern.test(theme)?theme:'light';
