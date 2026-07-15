@@ -15,7 +15,7 @@
       ['overview','Executive overview','overview.html','home'],
       ['realtime','Realtime dashboard','experimental-realtime.html','pulse'],
       ['monitoring','Monitoring','monitoring.html','activity'],
-      ['geo','Geospatial operations','geospatial.html','map'],
+      ['geo','Map workspace','geospatial.html','map'],
       ['analytics','Analytics','analytics.html','chart']
     ]],
     ['Work',[
