@@ -41,11 +41,11 @@
   function icon(name){return `<span class="ui-nav-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="${paths[name]}"></path></svg></span>`;}
   function sidebarMarkup(page){
     const ids=shellIds;
-    return `<aside class="ui-sidebar" id="${ids.nav}" aria-label="Primary navigation"><a class="ui-brand" href="../index.html"><span class="ui-brand-mark">OI</span><span class="ui-brand-copy">Ops Intelligence<small>Control plane</small></span></a>${groups.map(([label,items])=>`<section class="ui-nav-section"><div class="ui-nav-label">${label}</div><nav class="ui-nav-list">${items.map(([key,text,href,glyph])=>`<a class="ui-nav-link" href="${href}" ${key===page?'aria-current="page"':''}>${icon(glyph)}<span>${text}</span></a>`).join('')}</nav></section>`).join('')}<div class="ui-profile"><span class="ui-avatar">MP</span><span class="ui-profile-copy"><b>M. Petrovic</b><small>Operations lead</small></span><button type="button" id="${ids.profile}" aria-label="Open profile menu">⌄</button></div></aside>`;
+    return `<aside class="ui-sidebar" id="${ids.nav}" aria-label="Primary navigation"><a class="ui-brand" href="../index.html"><span class="ui-brand-mark">UI</span><span class="ui-brand-copy">UIUIDS<small>Control plane</small></span></a>${groups.map(([label,items])=>`<section class="ui-nav-section"><div class="ui-nav-label">${label}</div><nav class="ui-nav-list">${items.map(([key,text,href,glyph])=>`<a class="ui-nav-link" href="${href}" ${key===page?'aria-current="page"':''}>${icon(glyph)}<span>${text}</span></a>`).join('')}</nav></section>`).join('')}<div class="ui-profile"><span class="ui-avatar">MP</span><span class="ui-profile-copy"><b>M. Petrovic</b><small>Operations lead</small></span><button type="button" id="${ids.profile}" aria-label="Open profile menu">⌄</button></div></aside>`;
   }
   function headerMarkup(page,title,subtitle,actions){
     const ids=shellIds;
-    return `<header class="ui-page-header"><div class="ui-title-row"><button type="button" class="ui-mobile-menu" id="${ids.toggle}" aria-controls="${ids.nav}" aria-expanded="false">☰<span class="sr-only">Open navigation</span></button><div class="ui-page-heading"><div class="ui-eyebrow">Operations Intelligence Platform</div><h1 class="ui-page-title">${title}</h1><p class="ui-page-subtitle">${subtitle||''}</p></div></div><div class="ui-header-actions">${actions||''}</div></header>`;
+    return `<header class="ui-page-header"><div class="ui-title-row"><button type="button" class="ui-mobile-menu" id="${ids.toggle}" aria-controls="${ids.nav}" aria-expanded="false">☰<span class="sr-only">Open navigation</span></button><div class="ui-page-heading"><div class="ui-eyebrow">UIUIDS</div><h1 class="ui-page-title">${title}</h1><p class="ui-page-subtitle">${subtitle||''}</p></div></div><div class="ui-header-actions">${actions||''}</div></header>`;
   }
   function shellMarkup(page,title,subtitle,actions,content){return `<div class="ui-shell">${sidebarMarkup(page)}<main class="ui-main">${headerMarkup(page,title,subtitle,actions)}${content||''}</main></div>`;}
 
@@ -109,7 +109,7 @@
       const header=document.createElement('header');header.className='ui-page-header';
       const ids=shellIds;
       const titleRow=document.createElement('div');titleRow.className='ui-title-row';
-      titleRow.innerHTML=`<button type="button" class="ui-mobile-menu" id="${ids.toggle}" aria-controls="${ids.nav}" aria-expanded="false">☰<span class="sr-only">Open navigation</span></button><div class="ui-page-heading"><div class="ui-eyebrow">Operations Intelligence Platform</div><h1 class="ui-page-title">${title}</h1></div>`;
+      titleRow.innerHTML=`<button type="button" class="ui-mobile-menu" id="${ids.toggle}" aria-controls="${ids.nav}" aria-expanded="false">☰<span class="sr-only">Open navigation</span></button><div class="ui-page-heading"><div class="ui-eyebrow">UIUIDS</div><h1 class="ui-page-title">${title}</h1></div>`;
       const heading=titleRow.querySelector('.ui-page-heading');
       if(subtitleNode){subtitleNode.removeAttribute('slot');subtitleNode.className='ui-page-subtitle';heading.append(subtitleNode);}
       if(actionsNode){actionsNode.removeAttribute('slot');actionsNode.className='ui-header-actions';}
