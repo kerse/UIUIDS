@@ -1,0 +1,19 @@
+/* Experimental realtime typography profile: semantic roles, not ad-hoc sizes. */
+:root{
+ --exp-type-axis:10px;
+ --exp-type-meta:11px;
+ --exp-type-ui:13px;
+ --exp-type-section:15px;
+ --exp-type-page:24px;
+ --exp-type-metric:32px;
+ --exp-type-metric-hero:42px;
+}
+
+.exp-body{font-size:var(--exp-type-ui);line-height:1.35}
+.exp-card-title{font-size:var(--exp-type-ui)}
+.exp-card-head>span,.exp-card-head p,.exp-delta,.exp-selection,.exp-segmented button,.exp-event,.exp-inline-metric span,.exp-inline-metric em,.exp-tooltip,.exp-chart-foot,.exp-status-grid button small,.exp-mini-bars li{font-size:var(--exp-type-meta)}
+.exp-card-head h2{font-size:var(--exp-type-section);line-height:1.2}
+.exp-big-number{font-size:var(--exp-type-metric-hero)}
+.exp-mid-number,.exp-donut span b{font-size:var(--exp-type-metric)}
+.exp-inline-metric b,.exp-status-grid button b{font-size:var(--exp-type-section)}
+.exp-chart .axis-label{font-size:var(--exp-type-axis)}

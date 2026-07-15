@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-page="explorer">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Data explorer · Ops Intelligence</title>
+ <link rel="stylesheet" href="../assets/css/tokens.css">
+ <link rel="stylesheet" href="../assets/css/base.css">
+ <link rel="stylesheet" href="../assets/css/experimental-realtime.css">
+ <link rel="stylesheet" href="../assets/css/experimental-typography.css">
+ <link rel="stylesheet" href="../assets/css/data-explorer-style.css">
+ <link rel="stylesheet" href="../assets/css/system-contract.css">
+ <script defer src="../assets/js/system-contract.js"></script>
+ <script src="../assets/js/mock-data.js"></script>
+ <script defer src="../assets/js/data-explorer-style.js"></script>
+</head>
+<body class="exp-body explorer-body">
+ <ops-shell page="data" title="Data explorer">
+  <span slot="subtitle"><span class="live-dot"></span><span id="explorer-scope">16 assets · last sync now</span></span>
+  <div slot="actions"><label class="sr-only" for="saved-view">Saved view</label><select id="saved-view"><option value="all">All active assets</option><option value="risk">Saved view: At-risk assets</option><option value="finance">Finance watchlist</option></select><button class="exp-button" id="explorer-density">Compact</button><button class="exp-button ui-button-quiet" id="explorer-export">Export</button></div>
+
+   <section class="explorer-command" aria-label="Explorer filters">
+    <div class="explorer-search"><label class="sr-only" for="explorer-search">Search assets, IDs, owners or locations</label><span>⌕</span><input id="explorer-search" type="search" placeholder="Search assets, IDs, owners or locations"></div>
+    <label><span class="sr-only">Status</span><select id="explorer-status"><option value="">All statuses</option><option>Healthy</option><option>Warning</option><option>Incident</option><option>At risk</option><option>Maintenance</option></select></label>
+    <label><span class="sr-only">Type</span><select id="explorer-type"><option value="">All types</option></select></label>
+    <label><span class="sr-only">Owner</span><select id="explorer-owner"><option value="">All owners</option></select></label>
+    <button class="exp-button" id="explorer-reset">Reset</button>
+    <div class="explorer-command-actions"><div class="explorer-columns-wrap"><button class="exp-button" id="explorer-columns" aria-controls="column-menu" aria-expanded="false">Columns</button><div class="exp-popover explorer-columns-menu" id="column-menu" hidden><label><input type="checkbox" data-column-toggle="owner" checked> Owner</label><label><input type="checkbox" data-column-toggle="updated" checked> Updated</label></div></div><button class="explorer-text-button" id="explorer-empty">Preview empty state</button></div>
+   </section>
+
+   <div class="explorer-summary-line"><span id="explorer-count">Showing 1–12 of 16 assets</span><span id="explorer-view-label">View: All active assets</span><div class="explorer-chips" id="explorer-chips" aria-label="Active filters"></div></div>
+
+   <section class="explorer-workspace" aria-label="Asset table workspace">
+    <div class="explorer-workspace-head"><div><h2>Asset registry</h2><p>Sort, filter and inspect operational assets without leaving the workspace.</p></div><span id="explorer-selected-summary">No rows selected</span></div>
+    <div class="explorer-table-wrap">
+     <table class="explorer-table" id="explorer-table">
+      <thead><tr>
+       <th><input id="explorer-select-all" type="checkbox" aria-label="Select visible rows"></th>
+       <th><button data-sort="id">Asset ID <span>↕</span></button></th>
+       <th><button data-sort="name">Asset <span>↕</span></button></th>
+       <th><button data-sort="type">Type <span>↕</span></button></th>
+       <th>Status</th>
+       <th>Location</th>
+       <th data-column="owner">Owner</th>
+       <th class="numeric"><button data-sort="util">Utilization <span>↕</span></button></th>
+       <th class="numeric"><button data-sort="cost">Monthly cost <span>↕</span></button></th>
+       <th>Response SLA</th>
+       <th data-column="updated"><button data-sort="updated">Updated <span>↕</span></button></th>
+       <th><span class="sr-only">Actions</span></th>
+      </tr></thead>
+      <tbody id="explorer-body"></tbody>
+     </table>
+    </div>
+    <footer class="explorer-footer"><span id="explorer-pagination-label">1–12 of 16</span><div class="explorer-pagination"><button class="exp-button" id="explorer-prev">‹ Prev</button><span id="explorer-page">1 / 2</span><button class="exp-button" id="explorer-next">Next ›</button></div></footer>
+    <div class="explorer-bulk" id="explorer-bulk" hidden><strong id="explorer-bulk-count">0 selected</strong><button class="exp-button" data-bulk="assign">Assign M. Petrovic</button><button class="exp-button" data-bulk="export">Export selection</button><button class="exp-button" data-bulk="clear">Clear</button></div>
+   </section>
+ </ops-shell>
+ <div class="explorer-backdrop" id="explorer-backdrop"></div>
+ <aside class="explorer-inspector" id="explorer-inspector" aria-labelledby="inspector-title" hidden>
+  <div class="explorer-inspector-head"><div><p class="exp-eyebrow">Asset inspector</p><h2 id="inspector-title">Asset detail</h2></div><button class="exp-icon-button" id="inspector-close" aria-label="Close inspector">×</button></div>
+  <div id="inspector-content"></div>
+ </aside>
+ <div class="exp-toast" id="explorer-toast" role="status"></div>
+</body>
+</html>

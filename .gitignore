@@ -1,0 +1,10 @@
+# Working documentation and design inputs stay local; the repository is the runnable prototype only.
+/*.md
+/*.json
+/reference/
+
+# Local/editor artifacts
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

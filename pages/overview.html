@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-page="overview">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Executive overview · Ops Intelligence</title>
+ <link rel="stylesheet" href="../assets/css/tokens.css">
+ <link rel="stylesheet" href="../assets/css/base.css">
+ <link rel="stylesheet" href="../assets/css/experimental-realtime.css">
+ <link rel="stylesheet" href="../assets/css/experimental-typography.css">
+ <link rel="stylesheet" href="../assets/css/experimental-event-feed.css">
+ <link rel="stylesheet" href="../assets/css/executive-overview.css">
+ <link rel="stylesheet" href="../assets/css/system-contract.css">
+ <script defer src="../assets/js/system-contract.js"></script>
+ <script defer src="../assets/js/executive-overview.js"></script>
+</head>
+<body class="exp-body executive-body">
+ <ops-shell page="overview" title="Executive overview">
+  <span slot="subtitle"><span class="live-dot"></span><span id="exec-scope-label">All operating areas</span> · updated 2 minutes ago</span>
+  <div slot="actions">
+     <label class="sr-only" for="exec-range">Reporting period</label><select id="exec-range"><option value="7d">Last 7 days</option><option value="30d">Last 30 days</option><option value="qtd">Quarter to date</option></select>
+     <label class="sr-only" for="exec-area">Operating area</label><select id="exec-area"><option value="all">All operating areas</option><option value="cross">Cross-border network</option><option value="hub">Hub operations</option><option value="fleet">Fleet operations</option></select>
+     <button class="exp-button" id="exec-density">Compact</button>
+     <button class="exp-button" id="exec-share">⇧ Share</button>
+     <div class="exp-menu-wrap"><button class="exp-icon-button" id="exec-more" aria-controls="exec-menu" aria-expanded="false">•••<span class="sr-only">More actions</span></button><div class="exp-popover" id="exec-menu" hidden><button data-exec-action="refresh">Refresh summary</button><button data-exec-action="brief">Prepare executive brief</button><a href="monitoring.html">Open monitoring</a></div></div>
+  </div>
+
+   <section class="exp-dashboard executive-dashboard" aria-label="Executive portfolio summary">
+    <article class="exp-card exp-active exec-health">
+     <div class="exp-card-title"><span>⌁</span> network operating health</div>
+     <svg class="exp-spark" viewBox="0 0 180 50" role="img" aria-label="Network health has improved"><path d="M2 39L20 35L39 36L57 26L76 29L94 18L113 23L132 14L150 17L178 8"/></svg>
+     <div class="exp-big-number"><span id="exec-health-value">81.4</span><small>/ 100</small></div>
+     <div class="exp-delta positive" id="exec-health-delta">+4.2 points vs previous period</div>
+    </article>
+
+    <article class="exp-card exp-signals exec-exposure">
+     <div class="exp-card-title"><span>€</span> cost exposure</div>
+     <div class="exp-mid-number" id="exec-cost-value">€87.4k</div>
+     <div class="exp-delta positive" id="exec-cost-delta">−12.4% vs previous period</div>
+    </article>
+
+    <article class="exp-card exp-errors exec-incidents" id="exec-incidents-card" tabindex="0" role="button">
+     <div class="exp-card-title"><span>△</span><span id="exec-incident-label">open incidents / 7d</span></div>
+     <div class="exp-mid-number" id="exec-incident-value">7</div>
+     <div class="exp-delta negative">+2 require executive attention</div>
+    </article>
+
+    <article class="exp-card exp-pressure exec-priorities">
+     <div class="exp-card-head"><h2>Requires intervention</h2><span>financial & SLA impact</span></div>
+     <ol class="exp-ranking" id="exec-priority-list">
+      <li><button data-priority="AST-0421"><span>Temperature excursion · Northline trailer 14</span><i><b style="--value:94%"></b></i><strong>€18.4k</strong></button></li>
+      <li><button data-priority="RT-728"><span>Customs handoff delay · Horgoš route</span><i><b style="--value:78%"></b></i><strong>€12.9k</strong></button></li>
+      <li><button data-priority="AST-0269"><span>Sortation throughput · Niš lane 04</span><i><b style="--value:63%"></b></i><strong>312</strong></button></li>
+      <li><button data-priority="FIN-104"><span>Fuel forecast variance</span><i><b style="--value:42%"></b></i><strong>€6.8k</strong></button></li>
+      <li><button data-priority="OPS-2198"><span>Critical response SLA · field dispatch</span><i><b style="--value:28%"></b></i><strong>12m</strong></button></li>
+     </ol>
+     <div class="exp-selection" id="exec-priority-selection">Select a priority to see its decision context.</div>
+    </article>
+
+    <article class="exp-card exp-composition exec-composition">
+     <div class="exp-card-head"><h2>Exposure mix</h2><span>month to date</span></div>
+     <div class="exp-donut-layout">
+      <div class="exp-donut" role="img" aria-label="Exposure mix: fleet 42 percent, hubs 31 percent, network 18 percent, finance 9 percent"><svg viewBox="0 0 42 42"><circle class="donut-base" cx="21" cy="21" r="15.9"/><circle class="donut-segment telemetry" cx="21" cy="21" r="15.9" stroke-dasharray="42 58" stroke-dashoffset="25"/><circle class="donut-segment sla" cx="21" cy="21" r="15.9" stroke-dasharray="31 69" stroke-dashoffset="83"/><circle class="donut-segment finance" cx="21" cy="21" r="15.9" stroke-dasharray="18 82" stroke-dashoffset="52"/><circle class="donut-segment workflow" cx="21" cy="21" r="15.9" stroke-dasharray="9 91" stroke-dashoffset="34"/></svg><span><b>€87k</b><small>at risk</small></span></div>
+      <ul class="exp-legend"><li><i class="telemetry"></i><span>Fleet</span><b>42%</b></li><li><i class="sla"></i><span>Hubs</span><b>31%</b></li><li><i class="finance"></i><span>Network</span><b>18%</b></li><li><i class="workflow"></i><span>Finance</span><b>9%</b></li></ul>
+     </div>
+    </article>
+
+    <article class="exp-card exp-events exec-events">
+     <div class="exp-card-head"><div><h2>Recent operating events</h2><p>Decision-relevant changes · last 15 minutes</p></div><div class="exp-segmented" role="group" aria-label="Event filter"><button class="active" data-exec-filter="all" aria-pressed="true">All</button><button data-exec-filter="risk" aria-pressed="false">Risks</button></div></div>
+     <div class="exp-event-list" id="exec-event-list" aria-live="polite"></div>
+    </article>
+
+    <article class="exp-card exp-performance exec-performance">
+     <div class="exp-card-head"><div><h2>Portfolio trajectory</h2><p id="exec-chart-question">Question: Is operating health improving without increasing financial exposure?</p></div><label><span class="sr-only">Portfolio metric</span><select id="exec-metric"><option value="health">Operating health</option><option value="ontime">On-time performance</option><option value="cost">Cost exposure</option></select></label></div>
+     <div class="exp-inline-metrics" id="exec-summary-metrics"></div>
+     <div class="exp-chart" id="exec-chart"><div class="exp-tooltip" id="exec-tooltip" role="status"></div></div>
+     <div class="exp-chart-foot"><span id="exec-chart-source">Portfolio rollup · validated sources</span><span id="exec-chart-updated">Updated 2 minutes ago</span></div>
+    </article>
+
+    <article class="exp-card exp-status exec-status">
+     <div class="exp-card-head"><h2>Portfolio controls</h2><span>four operating checks</span></div>
+     <div class="exp-status-grid"><button data-check="Data quality"><span>Data quality</span><small>Within threshold</small><b>98.7%</b></button><button data-check="Critical SLA"><span>Critical SLA</span><small>2 breaches</small><b>96.1%</b></button><button data-check="Carrier availability"><span>Carrier availability</span><small>Operational</small><b>99.2%</b></button><button class="degraded" data-check="Forecast confidence"><span>Forecast confidence</span><small>Needs review △</small><b>82%</b></button></div>
+    </article>
+
+    <article class="exp-card exp-mix exec-drivers">
+     <div class="exp-card-head"><h2>Top cost drivers</h2><span>variance vs plan</span></div>
+     <ul class="exp-mini-bars"><li><span>Cross-border idle time</span><i><b style="--value:72%"></b></i><strong>€24.9k</strong></li><li><span>Temperature risk</span><i><b style="--value:54%"></b></i><strong>€18.4k</strong></li><li><span>Sortation degradation</span><i><b style="--value:45%"></b></i><strong>€15.3k</strong></li><li><span>Fuel reconciliation</span><i><b style="--value:29%"></b></i><strong>€9.8k</strong></li></ul>
+    </article>
+   </section>
+ </ops-shell>
+ <div class="exp-toast" id="exec-toast" role="status"></div>
+</body>
+</html>

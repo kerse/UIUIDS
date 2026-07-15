@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-page="operations">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Operations queue · Ops Intelligence</title>
+ <link rel="stylesheet" href="../assets/css/tokens.css">
+ <link rel="stylesheet" href="../assets/css/base.css">
+ <link rel="stylesheet" href="../assets/css/experimental-realtime.css">
+ <link rel="stylesheet" href="../assets/css/experimental-typography.css">
+ <link rel="stylesheet" href="../assets/css/operations-queue.css">
+ <link rel="stylesheet" href="../assets/css/system-contract.css">
+ <script defer src="../assets/js/system-contract.js"></script>
+ <script src="../assets/js/mock-data.js"></script>
+ <script defer src="../assets/js/operations-queue.js"></script>
+</head>
+<body class="exp-body queue-body">
+ <ops-shell page="operations" title="Operations queue">
+  <span slot="subtitle"><span class="live-dot"></span><span id="queue-scope">12 active work items · refreshed now</span></span>
+  <div slot="actions"><button class="exp-button" id="queue-density">Compact</button><button class="exp-button ui-button-primary" id="queue-create">Create task</button></div>
+
+   <section class="queue-signal-strip" aria-label="Queue health">
+    <div><span>Due in 15 min</span><strong id="queue-urgent">2</strong><small>requires immediate owner</small></div>
+    <div><span>Unassigned</span><strong id="queue-unassigned">2</strong><small>waiting for triage</small></div>
+    <div><span>My active work</span><strong id="queue-mine">3</strong><small>M. Petrovic</small></div>
+    <p><b>Operational focus</b><span id="queue-focus">Clear P1 cold-chain exception before 15:10.</span></p>
+   </section>
+
+   <section class="queue-command" aria-label="Queue controls">
+    <div class="queue-tabs" role="tablist" aria-label="Queue view"><button role="tab" aria-selected="true" data-tab="all">All work <span id="tab-all">12</span></button><button role="tab" aria-selected="false" data-tab="mine">My queue <span id="tab-mine">3</span></button><button role="tab" aria-selected="false" data-tab="attention">Needs attention <span id="tab-attention">2</span></button><button role="tab" aria-selected="false" data-tab="waiting">Waiting <span id="tab-waiting">2</span></button></div>
+    <div class="queue-search"><label class="sr-only" for="queue-search">Search tasks, IDs, assignees or next actions</label><span>⌕</span><input id="queue-search" type="search" placeholder="Search task, ID, assignee or next action"></div>
+    <label><span class="sr-only">Priority</span><select id="queue-priority"><option value="">All priorities</option><option>P1</option><option>P2</option><option>P3</option></select></label>
+    <label><span class="sr-only">Assignee</span><select id="queue-assignee"><option value="">All assignees</option></select></label>
+    <button class="exp-button queue-reset" id="queue-reset">Reset</button>
+    <button class="queue-text-action" id="queue-empty">Preview empty state</button>
+   </section>
+
+   <div class="queue-summary-line"><span id="queue-count">Showing 1–12 of 12 work items</span><span id="queue-view-label">View: All work</span><div class="queue-chips" id="queue-chips" aria-label="Active queue filters"></div></div>
+
+   <section class="queue-workspace" aria-label="Workflow task queue">
+    <div class="queue-workspace-head"><div><h2>Work items</h2><p>Prioritize SLA, assign ownership and move the next decision forward.</p></div><span id="queue-selected-summary">No rows selected</span></div>
+    <div class="queue-table-wrap"><table class="queue-table"><thead><tr><th><input type="checkbox" id="queue-select-all" aria-label="Select visible tasks"></th><th><button data-sort="id">Task <span>↕</span></button></th><th><button data-sort="priority">Priority <span>↕</span></button></th><th>State</th><th>Assignee</th><th><button data-sort="sla">SLA / due <span>↕</span></button></th><th>Next action</th><th><span class="sr-only">Quick action</span></th></tr></thead><tbody id="queue-body"></tbody></table></div>
+    <footer class="queue-footer"><span id="queue-pagination-label">1–12 of 12</span><div class="queue-pagination"><button class="exp-button" id="queue-prev">‹ Prev</button><span id="queue-page">1 / 1</span><button class="exp-button" id="queue-next">Next ›</button></div></footer>
+    <div class="queue-bulk" id="queue-bulk" hidden><strong id="queue-bulk-count">0 selected</strong><button class="exp-button" data-bulk="assign">Assign M. Petrovic</button><button class="exp-button" data-bulk="progress">Start work</button><button class="exp-button" data-bulk="clear">Clear</button></div>
+   </section>
+ </ops-shell>
+ <div class="queue-backdrop" id="queue-backdrop"></div>
+ <aside class="queue-inspector" id="queue-inspector" aria-labelledby="queue-inspector-title" hidden>
+  <div class="queue-inspector-head"><div><p class="exp-eyebrow">Work item inspector</p><h2 id="queue-inspector-title">Task detail</h2></div><button class="exp-icon-button" id="queue-inspector-close" aria-label="Close task inspector">×</button></div>
+  <div id="queue-inspector-content"></div>
+ </aside>
+ <div class="exp-toast" id="queue-toast" role="status"></div>
+</body>
+</html>

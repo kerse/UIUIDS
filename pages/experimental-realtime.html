@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-page="experimental-realtime">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Experimental realtime · Ops Intelligence</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../assets/css/tokens.css">
+ <link rel="stylesheet" href="../assets/css/base.css">
+ <link rel="stylesheet" href="../assets/css/experimental-realtime.css">
+ <link rel="stylesheet" href="../assets/css/experimental-typography.css">
+ <link rel="stylesheet" href="../assets/css/experimental-event-feed.css">
+ <link rel="stylesheet" href="../assets/css/system-contract.css">
+ <script defer src="../assets/js/system-contract.js"></script>
+ <script defer src="../assets/js/experimental-realtime.js"></script>
+</head>
+<body class="exp-body">
+ <ops-shell page="realtime" title="Realtime command dashboard">
+  <span slot="subtitle"><span class="live-dot"></span><span id="source-state">Updating live</span> · <span id="last-updated">updated now</span></span>
+  <div slot="actions">
+     <label class="sr-only" for="range-select">Time range</label>
+     <select id="range-select"><option value="30m">Last 30 minutes</option><option value="1h">Last hour</option><option value="4h">Last 4 hours</option></select>
+     <button class="exp-button" id="share-view">⇧ Share</button>
+     <button class="exp-button" id="pause-stream">Pause</button>
+     <div class="exp-menu-wrap"><button class="exp-icon-button" id="more-actions" aria-expanded="false" aria-controls="more-menu">•••<span class="sr-only">More actions</span></button><div class="exp-popover" id="more-menu" hidden><button data-stream="refresh">Refresh snapshot</button><button data-stream="delayed">Simulate delayed source</button><button data-stream="offline">Simulate offline source</button></div></div>
+  </div>
+
+   <section class="exp-dashboard" aria-label="Realtime operations dashboard">
+    <article class="exp-card exp-active">
+     <div class="exp-card-title"><span>⌁</span> active assets</div>
+     <svg class="exp-spark" viewBox="0 0 180 50" role="img" aria-label="Active asset count is stable"><path d="M2 37L20 31L39 34L57 22L76 25L94 17L113 21L132 12L150 18L178 9"/></svg>
+     <div class="exp-big-number" id="active-assets">1,284</div>
+     <div class="exp-delta positive">+2.6% vs previous window</div>
+    </article>
+
+    <article class="exp-card exp-signals">
+     <div class="exp-card-title"><span>▥</span> signals / min</div>
+     <div class="exp-mid-number" id="signals-minute">247</div>
+     <div class="exp-delta positive">+6.1% vs previous window</div>
+    </article>
+
+    <article class="exp-card exp-errors" id="errors-card">
+     <div class="exp-card-title"><span>△</span><span id="critical-window-label">critical events / 30m</span></div>
+     <div class="exp-mid-number" id="critical-events">7</div>
+     <div class="exp-delta negative">+2 requiring acknowledgement</div>
+    </article>
+
+    <article class="exp-card exp-pressure">
+     <div class="exp-card-head"><h2>Operational pressure points</h2><span>impact score</span></div>
+     <ol class="exp-ranking" id="pressure-list">
+      <li><button data-entity="AST-0421"><span>Northline cold-chain trailer 14</span><i><b style="--value:94%"></b></i><strong>94</strong></button></li>
+      <li><button data-entity="RT-728"><span>Horgoš cross-border route</span><i><b style="--value:81%"></b></i><strong>81</strong></button></li>
+      <li><button data-entity="AST-0269"><span>Niš sortation lane 04</span><i><b style="--value:67%"></b></i><strong>67</strong></button></li>
+      <li><button data-entity="FIN-104"><span>Fuel reconciliation feed</span><i><b style="--value:43%"></b></i><strong>43</strong></button></li>
+      <li><button data-entity="AST-0376"><span>Telemetry gateway relay 3</span><i><b style="--value:29%"></b></i><strong>29</strong></button></li>
+     </ol>
+     <div class="exp-selection" id="entity-selection">Select an entity to inspect its latest signal.</div>
+    </article>
+
+    <article class="exp-card exp-composition">
+     <div class="exp-card-head"><h2>Alert composition</h2><span>open now</span></div>
+     <div class="exp-donut-layout">
+      <div class="exp-donut" role="img" aria-label="Alert composition: telemetry 44 percent, SLA 28 percent, financial 17 percent, workflow 11 percent"><svg viewBox="0 0 42 42"><circle class="donut-base" cx="21" cy="21" r="15.9"/><circle class="donut-segment telemetry" cx="21" cy="21" r="15.9" stroke-dasharray="44 56" stroke-dashoffset="25"/><circle class="donut-segment sla" cx="21" cy="21" r="15.9" stroke-dasharray="28 72" stroke-dashoffset="81"/><circle class="donut-segment finance" cx="21" cy="21" r="15.9" stroke-dasharray="17 83" stroke-dashoffset="53"/><circle class="donut-segment workflow" cx="21" cy="21" r="15.9" stroke-dasharray="11 89" stroke-dashoffset="36"/></svg><span><b>18</b><small>open</small></span></div>
+      <ul class="exp-legend"><li><i class="telemetry"></i><span>Telemetry</span><b>44%</b></li><li><i class="sla"></i><span>SLA</span><b>28%</b></li><li><i class="finance"></i><span>Financial</span><b>17%</b></li><li><i class="workflow"></i><span>Workflow</span><b>11%</b></li></ul>
+     </div>
+    </article>
+
+    <article class="exp-card exp-events">
+     <div class="exp-card-head"><div><h2>Live operations feed</h2><p>Most recent · every 5 seconds</p></div><div class="exp-segmented" role="group" aria-label="Event filter"><button class="active" data-event-filter="all" aria-pressed="true">All</button><button data-event-filter="anomaly" aria-pressed="false">Anomalies</button></div></div>
+     <div class="exp-event-list" id="event-list" aria-live="polite"></div>
+    </article>
+
+    <article class="exp-card exp-performance">
+     <div class="exp-card-head"><div><h2>Signal processing performance</h2><p>Question: Is event processing keeping pace with the live source?</p></div><label><span class="sr-only">Performance metric</span><select id="metric-select"><option value="latency">Processing latency</option><option value="queue">Queue depth</option><option value="throughput">Throughput</option></select></label></div>
+     <div class="exp-inline-metrics" id="performance-metrics"></div>
+     <div class="exp-chart" id="performance-chart"><div class="exp-tooltip" id="chart-tooltip" role="status"></div></div>
+     <div class="exp-chart-foot"><span id="chart-source">Telemetry gateway · 5-second aggregate</span><span>Last-known-good remains visible if source is delayed</span></div>
+    </article>
+
+    <article class="exp-card exp-status">
+     <div class="exp-card-head"><h2>System status</h2><span>4 services</span></div>
+     <div class="exp-status-grid"><button data-service="API gateway"><span>API gateway</span><small>Operational</small><b>99.98%</b></button><button data-service="Event store"><span>Event store</span><small>Operational</small><b>99.99%</b></button><button data-service="Telemetry CDN"><span>Telemetry CDN</span><small>Operational</small><b>100%</b></button><button class="degraded" data-service="Workflow queue"><span>Workflow queue</span><small>Degraded △</small><b>98.1%</b></button></div>
+    </article>
+
+    <article class="exp-card exp-mix">
+     <div class="exp-card-head"><h2>Asset mix</h2><span>active</span></div>
+     <ul class="exp-mini-bars"><li><span>Vehicles</span><i><b style="--value:72%"></b></i><strong>42%</strong></li><li><span>Facilities</span><i><b style="--value:48%"></b></i><strong>28%</strong></li><li><span>Digital services</span><i><b style="--value:31%"></b></i><strong>18%</strong></li><li><span>Financial feeds</span><i><b style="--value:21%"></b></i><strong>12%</strong></li></ul>
+    </article>
+   </section>
+ </ops-shell>
+ <div class="exp-toast" id="exp-toast" role="status"></div>
+</body>
+</html>

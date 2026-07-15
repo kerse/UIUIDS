@@ -1,0 +1,18 @@
+/* The event feed reflows from a table-like row to a readable two-line record
+   whenever its own card becomes narrow (zoom, split view or responsive grid). */
+.exp-events{container-type:inline-size}
+
+@media(max-width:1280px){
+ .exp-event-list{grid-template-columns:1fr}
+ .exp-event:nth-child(5){border-bottom:1px solid #eef1f4}
+}
+
+@container (max-width:440px){
+ .exp-events .exp-card-head{display:grid;grid-template-columns:1fr;gap:10px}
+ .exp-events .exp-segmented{justify-self:start}
+ .exp-events .exp-event{grid-template-columns:57px max-content minmax(0,1fr);grid-template-areas:"time tag entity" "time detail detail";gap:4px 8px;min-height:56px;padding:7px 0;align-items:center}
+ .exp-events .exp-event time{grid-area:time;align-self:start;padding-top:4px}
+ .exp-events .exp-event-tag{grid-area:tag}
+ .exp-events .exp-event a{grid-area:entity;min-width:0}
+ .exp-events .exp-event strong{display:block;grid-area:detail;min-width:0;overflow-wrap:anywhere;white-space:normal}
+}
